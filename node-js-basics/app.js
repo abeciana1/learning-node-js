@@ -1,8 +1,6 @@
 const http = require('http');
 const fs = require('fs');
 
-// console.log(http)
-
 const rqListener = (req, res) => { // req => request // res => response
     // console.log(req)
     // console.log(req.url, req.method, req.headers)
@@ -24,15 +22,16 @@ const rqListener = (req, res) => { // req => request // res => response
             console.log(chunk)
             body.push(chunk)
         })
-        req.on('end', () => {
+        return req.on('end', () => {
             const parsedBody = Buffer.concat(body).toString()
             console.log(parsedBody)
             const message = parsedBody.split("=")[1]
             console.log(message)
-            fs.writeFileSync('message.txt', message)
+            fs.writeFile('message.txt', message, (err) => {
+                res.writeHead(302, { 'Location': '/' })
+                return res.end()
+            })
         })
-        res.writeHead(302, { 'Location': '/' })
-        return res.end()
     }
     res.setHeader('Content-Type', 'text/html')
     res.write('<html>')
