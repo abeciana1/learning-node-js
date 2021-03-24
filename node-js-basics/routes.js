@@ -1,12 +1,6 @@
 const fs = require('fs');
 
 const rqListener = (req, res) => { // req => request // res => response
-    // console.log(req)
-    // console.log(req.url, req.method, req.headers)
-    // process.exit() //! Hard exit event loop for server
-    // const [url, method] = req
-    // console.log("url", url)
-    // console.log("method", method)
     const url = req.url
     const method = req.method
     if (url === "/") {
