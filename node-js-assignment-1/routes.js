@@ -25,9 +25,10 @@ const reqListener = (req, res) => {
         })
         return req.on('end', () => {
             const parsedBody = Buffer.concat(body).toString()
+            console.log(parsedBody)
             const username = parsedBody.split("=")[1]
-            users.push(username)
             console.log(username)
+            users.push(username)
             res.writeHead(302, { 'Location': '/users' })
             return res.end()
         })
