@@ -5,29 +5,13 @@ const bodyParser = require('body-parser')
 const app = express();
 // console.log(app.use)
 
-app.use(bodyParser.urlencoded({extended: false}))
+const adminRoutes = require('./routes/admin')
+const shopRouters = require('./routes/shop')
 
-app.use("/add-product", (req, res, next) => {
-    // console.log("Another middleware");
-    // res.send("<h1>Hello from Add Product</h1>");
-    const addProductForm = `
-    <form action="/product" method="POST" >
-        <input type="text" name="add product" placeholder="Add Product" />
-        <button type="submit">Add Product</button>
-    </form>
-    `
-    res.send(addProductForm)
-});
+app.use(bodyParser.urlencoded({ extended: false }))
 
-app.use('/product', (req, res, next) => {
-    console.log(req.body)
-    res.redirect('/')
-})
-
-app.use('/', (req, res, next) => {
-    // console.log("Another middleware")
-    res.send("<h1>Hello from Express</h1>")
-});
+app.use(adminRoutes)
+app.use(shopRouters)
 
 //! listening on port 3000
 app.listen(3000)
