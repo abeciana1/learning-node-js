@@ -13,4 +13,6 @@ router.post("/user", (req, res) => {
     res.redirect("/")
 })
 
-module.exports = router
+// module.exports = router
+exports.routes = router
+exports.products = products
